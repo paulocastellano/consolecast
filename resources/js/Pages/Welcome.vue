@@ -85,7 +85,7 @@ defineProps({
                                     href="https://laravel.com/docs"
                                     class="underline text-gray-900 dark:text-white"
                                 >
-                                    Documentation
+                                    Documentation123
                                 </a>
                             </div>
                         </div>
