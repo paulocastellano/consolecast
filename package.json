@@ -34,6 +34,7 @@
         "@tailwindcss/aspect-ratio": "^0.4.0",
         "@tailwindcss/line-clamp": "^0.3.1",
         "@tailwindcss/typography": "^0.5.2",
+        "@vimeo/player": "^2.16.4",
         "@vue/server-renderer": "^3.2.31",
         "dayjs": "^1.11.0",
         "webpack-node-externals": "^3.0.0"

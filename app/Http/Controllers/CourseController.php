@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Inertia\Inertia;
 
+use App\Models\Course;
+
 class CourseController extends Controller
 {
     public function index()
@@ -13,6 +15,12 @@ class CourseController extends Controller
 
     public function show($slug)
     {
-        return Inertia::render('Course/Show');
+        $course = Course::where('slug', $slug)->with('lessons')->first();
+        if (!$course) {
+            abort(404);
+        }
+        return Inertia::render('Course/Show', [
+            'course' => $course
+        ]);
     }
 }

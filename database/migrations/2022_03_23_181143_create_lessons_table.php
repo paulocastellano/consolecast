@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('slug');
             $table->time('duration', 0);
 
-            $table->string('video_url');
+            $table->string('video_id');
             $table->integer('order');
 
             $table->boolean('is_free')->default(false);

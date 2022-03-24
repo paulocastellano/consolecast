@@ -27,7 +27,7 @@ class LessonFactory extends Factory
             'description' => $this->faker->paragraph,
             'duration' =>  "0" . rand(0, 1) . ":" . rand(0, 59) . ":00",
             'course_id' => Course::factory(),
-            'video_url' => 'https://vimeo.com/532664981/c50776aea8',
+            'video_id' => '532666360',
             'order' => rand(1, 100),
             'is_free' => collect(['true', 'false'])->random(),
         ];

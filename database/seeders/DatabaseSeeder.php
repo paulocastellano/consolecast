@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
         Course::factory()
             ->count(50)
             ->hasTopics(4)
-            ->hasLessons(6)
+            ->hasLessons(20)
             ->create();
     }
 }

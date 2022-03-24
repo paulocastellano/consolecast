@@ -37,6 +37,14 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user(),
             ],
+
+            'flash' => $request->session()->get('flash', []),
+            'env' => config('app.env'),
+            'errorBags' => function () {
+                return collect(optional(session()->get('errors'))->getBags() ?: [])->mapWithKeys(function ($bag, $key) {
+                    return [$key => $bag->messages()];
+                })->all();
+            },
         ]);
     }
 }
