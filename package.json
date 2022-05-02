@@ -37,6 +37,10 @@
         "@vimeo/player": "^2.16.4",
         "@vue/server-renderer": "^3.2.31",
         "dayjs": "^1.11.0",
+        "highlight.js": "^11.5.0",
+        "hotkeys-js": "^3.8.7",
+        "laravel-vapor": "^0.5.1",
+        "marked": "^4.0.12",
         "webpack-node-externals": "^3.0.0"
     }
 }

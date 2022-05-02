@@ -70,12 +70,12 @@ const subNavigation = [
     //     icon: KeyIcon,
     //     current: route().current("settings.api-tokens.index"),
     // },
-    // {
-    //     name: "Billing",
-    //     href: route("spark.portal"),
-    //     icon: CreditCardIcon,
-    //     current: route().current("spark.portal"),
-    // },
+    {
+        name: "Billing",
+        href: route("billing"),
+        icon: CreditCardIcon,
+        current: route().current("billing"),
+    },
 ];
 
 export default {

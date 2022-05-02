@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Models\User;
+
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Inertia\Inertia;
+
+use App\Models\User;
+use App\Models\Country;
 
 class RegisteredUserController extends Controller
 {
@@ -40,11 +43,14 @@ class RegisteredUserController extends Controller
             'password' => ['required', Rules\Password::defaults()],
         ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
+        $user = new User;
+
+        $user->name = $request->name;
+        $user->username = Str::slug($request->name, '-');
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->country_id = Country::where('code', 'US')->first()->id;
+        $user->save();
 
         event(new Registered($user));
 

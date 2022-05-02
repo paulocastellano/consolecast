@@ -29,7 +29,7 @@ class LessonFactory extends Factory
             'course_id' => Course::factory(),
             'video_id' => '532666360',
             'order' => rand(1, 100),
-            'is_free' => collect(['true', 'false'])->random(),
+            'access' => collect(['free', 'free_logged', 'paid'])->random(),
         ];
     }
 }

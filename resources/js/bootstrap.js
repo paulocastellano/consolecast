@@ -10,6 +10,18 @@ window.axios = require('axios');
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
+// dayjs
+window.dayjs = require("dayjs");
+let utc = require("dayjs/plugin/utc");
+let timezone = require("dayjs/plugin/timezone");
+let relativeTime = require("dayjs/plugin/relativeTime");
+let calendar = require("dayjs/plugin/calendar");
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
+dayjs.extend(calendar);
+dayjs.extend(relativeTime);
+
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting

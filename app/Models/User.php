@@ -2,15 +2,20 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Facades\Storage;
+
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Laravel\Cashier\Billable;
+
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, Billable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -19,6 +24,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'username',
         'email',
         'password',
     ];
@@ -44,7 +50,10 @@ class User extends Authenticatable
 
     public function getAvatarAttribute($value)
     {
-
-        return 'https://ui-avatars.com/api/?name=' . urlencode($this->name) . '&color=FFFFFF&background=9CA3AF';
+        if ($value) {
+            return Storage::url($value);
+        } else {
+            return 'https://ui-avatars.com/api/?name=' . urlencode($this->name) . '&color=FFFFFF&background=9CA3AF';
+        }
     }
 }

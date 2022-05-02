@@ -18,7 +18,10 @@ return new class extends Migration
             $table->string('name');
             $table->longText('description');
             $table->string('slug');
-            $table->boolean('under_development')->default(false);
+            $table->enum('level', ['beginner', 'intermediate', 'advanced']);
+            $table->boolean('published')->default(true);
+            $table->boolean('in_development')->default(false);
+            $table->boolean('home_featured')->default(false);
             $table->timestamps();
             $table->softDeletes('deleted_at', 0);
         });

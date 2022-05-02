@@ -4,13 +4,26 @@
     "description": "The Laravel Framework.",
     "keywords": ["framework", "laravel"],
     "license": "MIT",
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://nova.laravel.com"
+        },
+        {
+            "type": "composer",
+            "url": "https://spark.laravel.com"
+        }
+    ],
     "require": {
         "php": "^8.0.2",
         "cviebrock/eloquent-sluggable": "^9.0",
         "guzzlehttp/guzzle": "^7.2",
         "inertiajs/inertia-laravel": "^0.5.4",
+        "laravel/cashier": "^13.8",
         "laravel/framework": "^9.2",
+        "laravel/nova": "^3.31",
         "laravel/sanctum": "^2.8",
+        "laravel/scout": "^9.4",
         "laravel/tinker": "^2.7",
         "predis/predis": "^1.1",
         "tightenco/ziggy": "^1.0"

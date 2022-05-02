@@ -30,7 +30,8 @@ return new class extends Migration
             $table->string('linkedin')->nullable();
             $table->string('twitter')->nullable();
             $table->string('github')->nullable();
-            $table->string('country')->nullable();
+
+            $table->foreignId('country_id')->index();
 
             $table->rememberToken();
             $table->timestamps();

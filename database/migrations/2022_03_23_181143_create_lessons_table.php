@@ -23,7 +23,11 @@ return new class extends Migration
             $table->string('video_id');
             $table->integer('order');
 
-            $table->boolean('is_free')->default(false);
+            $table->enum('access', ['free', 'free_logged', 'paid']);
+
+
+
+
             $table->foreignId('course_id')->index();
 
             $table->timestamps();

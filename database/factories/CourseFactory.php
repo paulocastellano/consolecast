@@ -25,7 +25,10 @@ class CourseFactory extends Factory
         return [
             'name' => 'Course about ' . collect(['laravel', 'vuejs', 'livewire', 'php', 'nuxt.js', 'tailwindcss'])->random(),
             'description' => $this->faker->paragraph,
-            'under_development' => collect([true, false])->random()
+            'level' => collect(['beginner', 'intermediate', 'advanced'])->random(),
+            'published' => collect([true, false])->random(),
+            'home_featured' => collect([true, false])->random(),
+            'in_development' => collect([true, false])->random()
         ];
     }
 }

@@ -19,8 +19,10 @@
         <script src="{{ mix('js/vendor.js') }}" defer></script>
         <script src="{{ mix('js/app.js') }}" defer></script>
         @inertiaHead
+
+        <script src="https://js.stripe.com/v3/" defer></script>
     </head>
-    <body class="h-full font-sans antialiased bg-gray-900">
+    <body class="h-full font-sans antialiased">
         @inertia
 
         @env ('local')
