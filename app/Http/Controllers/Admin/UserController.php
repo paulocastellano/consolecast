@@ -6,15 +6,23 @@ use Inertia\Inertia;
 
 use Illuminate\Http\Request;
 
-use App\Models\Course;
-use App\Models\Lesson;
+use App\Models\User;
 
 class UserController extends Controller
 {
     public function index()
     {
+        $users = User::orderBy('id', 'desc')->paginate(20);
+        return Inertia::render('Admin/User/Index', [
+            'users' => $users
+        ]);
+    }
 
-
-        return Inertia::render('Admin/User/Index', []);
+    public function show($id)
+    {
+        $user = User::find($id);
+        return Inertia::render('Admin/User/Show', [
+            'user' => $user
+        ]);
     }
 }

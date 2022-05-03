@@ -44,7 +44,6 @@ class RegisteredUserController extends Controller
         ]);
 
         $user = new User;
-
         $user->name = $request->name;
         $user->username = Str::slug($request->name, '-');
         $user->email = $request->email;

@@ -16,7 +16,7 @@
                 leave-to-class="opacity-0"
             >
                 <div
-                    class="max-w-sm w-full shadow-2xl rounded-lg pointer-events-auto overflow-hidden bg-gray-800 border border-gray-700"
+                    class="max-w-sm w-full bg-white shadow-2xl rounded-lg pointer-events-auto ring-1 ring-black ring-opacity-5 overflow-hidden"
                 >
                     <div class="p-4">
                         <div class="flex items-start">
@@ -35,24 +35,24 @@
                             <div class="ml-3 w-0 flex-1 pt-0.5">
                                 <p
                                     v-if="style == 'success'"
-                                    class="text-sm font-medium text-gray-100"
+                                    class="text-sm font-medium text-gray-900"
                                 >
                                     Success!
                                 </p>
                                 <p
                                     v-if="style == 'danger'"
-                                    class="text-sm font-medium text-gray-100"
+                                    class="text-sm font-medium text-gray-900"
                                 >
                                     Ops!
                                 </p>
-                                <p class="mt-1 text-sm text-gray-300">
+                                <p class="mt-1 text-sm text-gray-500">
                                     {{ message }}
                                 </p>
                             </div>
                             <div class="ml-4 flex-shrink-0 flex">
                                 <button
                                     @click="show = false"
-                                    class="bg-gray-700 rounded-md inline-flex text-gray-400 hover:text-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600"
+                                    class="bg-white rounded-md inline-flex text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                                 >
                                     <span class="sr-only">Close</span>
                                     <XIcon class="h-5 w-5" aria-hidden="true" />

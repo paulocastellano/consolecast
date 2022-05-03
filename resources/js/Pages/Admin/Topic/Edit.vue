@@ -85,18 +85,18 @@
 
                     <div class="pt-5">
                         <div class="flex justify-end">
-                            <a
-                                href="#"
+                            <CsSecondaryButtonLink
+                                :href="route('admin.topics.index')"
                                 class="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                             >
                                 Cancel
-                            </a>
-                            <button
+                            </CsSecondaryButtonLink>
+                            <CsButton
                                 type="submit"
                                 class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                             >
                                 Update Topic
-                            </button>
+                            </CsButton>
                         </div>
                     </div>
                 </div>
@@ -107,7 +107,9 @@
 
 <script>
 import { Head } from "@inertiajs/inertia-vue3";
+import CsButton from "@/Components/Button.vue";
 import CsButtonLink from "@/Components/ButtonLink.vue";
+import CsSecondaryButtonLink from "@/Components/SecondaryButtonLink.vue";
 import AdminLayout from "@/Layouts/Admin/Master.vue";
 import CsInput from "@/Components/Input.vue";
 import CsLabel from "@/Components/Label.vue";
@@ -123,6 +125,8 @@ export default {
         Head,
         AdminLayout,
         CsButtonLink,
+        CsButton,
+        CsSecondaryButtonLink,
 
         CsInput,
         CsLabel,

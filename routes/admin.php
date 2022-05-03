@@ -35,4 +35,5 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'is.admin']], functi
 
     // users
     Route::get('/users', [UserController::class, 'index'])->name('admin.users.index');
+    Route::get('/users/{id}', [UserController::class, 'show'])->name('admin.users.show');
 });

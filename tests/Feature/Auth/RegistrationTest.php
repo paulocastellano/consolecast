@@ -6,6 +6,8 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
+use App\Models\Country;
+
 class RegistrationTest extends TestCase
 {
     use RefreshDatabase;
@@ -19,11 +21,13 @@ class RegistrationTest extends TestCase
 
     public function test_new_users_can_register()
     {
+
+        Country::factory()->create();
+
         $response = $this->post('/register', [
             'name' => 'Test User',
             'email' => 'test@example.com',
-            'password' => 'password',
-            'password_confirmation' => 'password',
+            'password' => 'password'
         ]);
 
         $this->assertAuthenticated();
