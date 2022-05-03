@@ -2,18 +2,12 @@
     <div>
         <Head :title="title" />
         <Sidebar />
+        <Banner />
         <div class="md:pl-64 flex flex-col flex-1">
             <main class="flex-1">
-                <div class="py-6">
-                    <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
-                        <h1 class="text-2xl font-semibold text-gray-900">
-                            {{ title }}
-                        </h1>
-                    </div>
-                    <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
-                        <div class="py-4">
-                            <slot></slot>
-                        </div>
+                <div class="py-16">
+                    <div class="max-w-7xl mx-auto">
+                        <slot></slot>
                     </div>
                 </div>
             </main>
@@ -24,6 +18,7 @@
 <script>
 import { Head } from "@inertiajs/inertia-vue3";
 import Sidebar from "./Sidebar.vue";
+import Banner from "@/Components/Banner";
 
 export default {
     props: {
@@ -33,6 +28,7 @@ export default {
         },
     },
     components: {
+        Banner,
         Head,
         Sidebar,
     },

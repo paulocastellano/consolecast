@@ -3,10 +3,9 @@
         :value="modelValue"
         @input="$emit('update:modelValue', $event.target.value)"
         ref="input"
-        id="location"
-        name="location"
-        class="bg-gray-700 text-gray-100 autofill:bg-gray-700 border-gray-600 focus:outline-none rounded-md text-sm placeholder-gray-400 shadow-sm"
+        class="shadow-sm border border-gray-300 focus:outline-none focus:border-gray-800 focus:ring-0 rounded text-sm placeholder-gray-400 text-gray-800"
     >
+        <option :value="null">Select...</option>
         <option v-for="(value, index) in values" :key="index" :value="index">
             {{ value }}
         </option>
@@ -16,9 +15,7 @@
 <script>
 export default {
     props: ["values", "modelValue"],
-
     emits: ["update:modelValue"],
-
     methods: {
         focus() {
             this.$refs.input.focus();

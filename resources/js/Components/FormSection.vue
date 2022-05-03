@@ -1,17 +1,13 @@
 <template>
     <div
-        class="px-4 py-4 sm:px-6 sm:py-6 bg-gray-800 rounded-xl border border-gray-700 text-gray-100"
+        class="px-4 py-4 sm:px-6 sm:py-6 bg-white border border-gray-200 rounded-lg"
     >
         <jet-section-title>
             <template #title>
-                <div class="flex items-center text-gray-100">
+                <div class="flex items-center">
                     <slot name="title"></slot></div
             ></template>
-            <template #description>
-                <div class="text-gray-300">
-                    <slot name="description"></slot>
-                </div>
-            </template>
+            <template #description><slot name="description"></slot></template>
         </jet-section-title>
 
         <form @submit.prevent="$emit('submitted')">

@@ -58,7 +58,8 @@ class Course extends Model
 
     public function getWatchTimeAttribute()
     {
-        return DateTimeHelper::durationToHumans($this->lessons()->sum('duration'));
+        $duration = $this->lessons()->count() >= 1 ? $this->lessons()->sum('duration') : '00:00:00';
+        return DateTimeHelper::durationToHumans($duration);
     }
 
     public function lessons()

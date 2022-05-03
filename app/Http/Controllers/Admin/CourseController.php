@@ -32,6 +32,34 @@ class CourseController extends Controller
         ]);
     }
 
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'description' => ['required', 'string'],
+            'slug' => ['required', 'string', 'max:255'],
+            'level' => ['required', 'string', 'max:255'],
+            'published' => ['required', 'boolean'],
+            'in_development' => ['required', 'boolean'],
+            'home_featured' => ['required', 'boolean'],
+        ]);
+
+        $course = new Course;
+        $course->name = $request->name;
+        $course->description = $request->description;
+        $course->slug = $request->slug;
+        $course->level = $request->level;
+        $course->published = $request->published;
+        $course->in_development = $request->in_development;
+        $course->home_featured = $request->home_featured;
+        $course->save();
+
+        session()->flash('flash.banner', 'Course added successful.');
+        session()->flash('flash.bannerStyle', 'success');
+
+        return redirect(route('admin.courses.index'));
+    }
+
     public function show($slug)
     {
         $course = Course::where('slug', $slug)
@@ -51,11 +79,5 @@ class CourseController extends Controller
             'course' => $course,
             'lessons' => $lessons
         ]);
-    }
-
-    public function globalSearch(Request $request)
-    {
-        $courses = Course::search($request->q)->get();
-        return response()->json($courses);
     }
 }
