@@ -104,6 +104,35 @@
                                         />
                                     </div>
                                 </div>
+
+                                <div class="sm:col-span-6">
+                                    <CsLabel
+                                        for="level"
+                                        class="block text-sm font-medium text-gray-700"
+                                    >
+                                        Topics
+                                    </CsLabel>
+                                    <div class="mt-1">
+                                        <select
+                                            id="topics"
+                                            :multiple="true"
+                                            v-model="form.topics"
+                                            class="w-full shadow-sm border border-gray-300 focus:outline-none focus:border-gray-800 focus:ring-0 rounded text-sm placeholder-gray-400 text-gray-800"
+                                        >
+                                            <option
+                                                v-for="(value, index) in topics"
+                                                :key="index"
+                                                :value="index"
+                                            >
+                                                {{ value }}
+                                            </option>
+                                        </select>
+                                        <CsInputError
+                                            :message="form.errors.topics"
+                                            class="mt-1"
+                                        />
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -126,7 +155,9 @@
                                         <div class="relative flex items-start">
                                             <div class="flex items-center h-5">
                                                 <CsCheckbox
-                                                    v-model="form.published"
+                                                    v-model:checked="
+                                                        form.published
+                                                    "
                                                     id="published"
                                                 />
                                             </div>
@@ -147,7 +178,7 @@
                                         <div class="relative flex items-start">
                                             <div class="flex items-center h-5">
                                                 <CsCheckbox
-                                                    v-model="
+                                                    v-model:checked="
                                                         form.in_development
                                                     "
                                                     id="in_development"
@@ -171,7 +202,9 @@
                                         <div class="relative flex items-start">
                                             <div class="flex items-center h-5">
                                                 <CsCheckbox
-                                                    v-model="form.home_featured"
+                                                    v-model:checked="
+                                                        form.home_featured
+                                                    "
                                                     id="home_featured"
                                                 />
                                             </div>
@@ -246,7 +279,7 @@ export default {
         CsFormSection,
         CsInputError,
     },
-    props: ["courses"],
+    props: ["topics"],
 
     data() {
         return {
@@ -258,6 +291,7 @@ export default {
                 published: false,
                 in_development: false,
                 home_featured: false,
+                topics: [],
             }),
         };
     },

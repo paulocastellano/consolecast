@@ -14,6 +14,7 @@ use App\Http\Controllers\Site\CourseController;
 use App\Http\Controllers\Site\LessonController;
 use App\Http\Controllers\Site\LessonCommentController;
 use App\Http\Controllers\Site\TopicController;
+use App\Http\Controllers\Site\LanguageController;
 
 Route::group(['middleware' => []], function () {
 
@@ -25,7 +26,6 @@ Route::group(['middleware' => []], function () {
 
     // courses
     Route::get('/courses', [CourseController::class, 'index'])->name('courses.index');
-    Route::get('/courses/global-search', [CourseController::class, 'globalSearch'])->name('courses.global-search');
     Route::get('/courses/{slug}', [CourseController::class, 'show'])->name('courses.show');
 
     // lessons
@@ -38,6 +38,10 @@ Route::group(['middleware' => []], function () {
     Route::get('/topics', [TopicController::class, 'index'])->name('topics.index');
     Route::get('/topics/{slug}', [TopicController::class, 'show'])->name('topics.show');
 
+    // languages
+    Route::get('/languages', [LanguageController::class, 'index'])->name('languages.index');
+    Route::get('/languages/{slug}', [LanguageController::class, 'show'])->name('languages.show');
+
     // profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -46,4 +50,7 @@ Route::group(['middleware' => []], function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('/billing', BillingController::class)->name('billing');
+
+    // global search
+    Route::get('/global-search', [CourseController::class, 'globalSearch'])->name('courses.global-search');
 });

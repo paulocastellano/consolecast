@@ -41,6 +41,7 @@
         "hotkeys-js": "^3.8.7",
         "laravel-vapor": "^0.5.1",
         "marked": "^4.0.12",
+        "vue-multiselect": "^3.0.0-alpha.2",
         "webpack-node-externals": "^3.0.0"
     }
 }

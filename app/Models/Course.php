@@ -15,6 +15,12 @@ class Course extends Model
 {
     use HasFactory, Sluggable, Searchable, SoftDeletes;
 
+    protected $casts = [
+        'published' => 'boolean',
+        'in_development' => 'boolean',
+        'home_featured' => 'boolean',
+    ];
+
     /**
      * Return the sluggable configuration array for this model.
      *
@@ -50,7 +56,6 @@ class Course extends Model
     {
         $array = $this->toArray();
 
-        // Customize the data array...
 
         return $array;
     }
@@ -69,6 +74,6 @@ class Course extends Model
 
     public function topics()
     {
-        return $this->belongsToMany(Topic::class);
+        return $this->belongsToMany(Topic::class)->withTimestamps();
     }
 }
