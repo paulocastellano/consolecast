@@ -4,16 +4,13 @@
 
 @import "highlight.js/styles/monokai.css";
 
-.bg-home-header {
-    background-image: url('/images/home/hero.svg');
-}
 
-.divider-blue-900 {
+.course-show-hero-bg {
     width: 100%;
     position: relative;
 }
 
-.divider-blue-900::before {
+.course-show-hero-bg::before {
     content: '';
     position: absolute;
     width: 100%;
@@ -22,8 +19,8 @@
     left: 0;
     right: 0;
     bottom: -29px;
-    -webkit-mask-image: url(/images/divider-blue-900.svg);
-    mask-image: url(/images/divider-blue-900.svg);
+    -webkit-mask-image: url(/images/courses/hero-bg.svg);
+    mask-image: url(/images/courses/hero-bg.svg);
     mask-size: cover;
     z-index: 10;
 }

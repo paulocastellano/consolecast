@@ -16,7 +16,7 @@ use App\Http\Controllers\Site\LessonCommentController;
 use App\Http\Controllers\Site\TopicController;
 use App\Http\Controllers\Site\LanguageController;
 
-Route::group(['middleware' => []], function () {
+Route::group(['middleware' => ['set.cache']], function () {
 
     // site
     Route::get('/', [HomeController::class, 'index'])->name('home');

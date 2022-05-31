@@ -22,6 +22,13 @@ class Course extends Model
     ];
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [];
+
+    /**
      * Return the sluggable configuration array for this model.
      *
      * @return array
@@ -35,29 +42,9 @@ class Course extends Model
         ];
     }
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [];
-
-    public function searchableAs()
+    public function scopePublished($query)
     {
-        return 'courses_index';
-    }
-
-    /**
-     * Get the indexable data array for the model.
-     *
-     * @return array
-     */
-    public function toSearchableArray()
-    {
-        $array = $this->toArray();
-
-
-        return $array;
+        return $query->where('published', true);
     }
 
 

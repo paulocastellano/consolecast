@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-blue-900">
+    <div class="bg-blue-dark">
         <Disclosure as="nav" class="" v-slot="{ open }">
             <div class="px-4 max-w-7xl mx-auto">
                 <div class="flex justify-between h-16">
@@ -41,6 +41,13 @@
                         <div
                             class="hidden md:ml-4 md:flex-shrink-0 md:flex md:items-center"
                         >
+                            <a
+                                :href="route('register')"
+                                class="inline-flex items-center p-2 border border-transparent rounded-lg bg-[#1F1B4C] hover:text-blue-900"
+                            >
+                                <SearchIcon class="h-6 w-6 text-white" />
+                            </a>
+
                             <div v-if="$page.props.auth.user">
                                 <div class="ml-3 relative">
                                     <jet-dropdown align="right" width="64">
@@ -166,13 +173,13 @@
                             <div v-else>
                                 <a
                                     :href="route('login')"
-                                    class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white hover:underline"
+                                    class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-semibold text-white hover:underline"
                                 >
                                     Sign in
                                 </a>
                                 <a
                                     :href="route('register')"
-                                    class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-gray-200 border-gray-600 hover:bg-white hover:text-blue-900 hover:border-white"
+                                    class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-semibold rounded-lg text-white border-white hover:text-blue-900"
                                 >
                                     Get Started
                                 </a>
@@ -227,6 +234,8 @@
                 </div>
             </DisclosurePanel>
         </Disclosure>
+
+        <GlobalSearch />
     </div>
 </template>
 
@@ -257,6 +266,7 @@ import {
     GiftIcon,
     PlusSmIcon,
     CreditCardIcon,
+    SearchIcon,
 } from "@heroicons/vue/outline";
 
 import JetApplicationMark from "@/Components/ApplicationMark";
@@ -264,6 +274,8 @@ import JetDropdown from "@/Components/Dropdown";
 import JetDropdownLink from "@/Components/DropdownLink";
 import JetNavLink from "@/Components/NavLink";
 import JetResponsiveNavLink from "@/Components/ResponsiveNavLink";
+
+import GlobalSearch from "@/Components/Search.vue";
 
 export default {
     components: {
@@ -295,7 +307,11 @@ export default {
         PlusSmIcon,
 
         ChatAltIcon,
+
         SupportIcon,
+        SearchIcon,
+
+        GlobalSearch,
     },
 
     setup() {

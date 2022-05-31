@@ -3,8 +3,6 @@
         <Head :title="title" />
         <Header />
 
-        <GlobalSearch />
-
         <jet-banner />
 
         <div class="min-h-0 flex-1 flex">
@@ -41,8 +39,6 @@ import { Head, Link } from "@inertiajs/inertia-vue3";
 import Header from "@/Layouts/Header";
 import Footer from "@/Layouts/Footer";
 
-import GlobalSearch from "@/Components/Search.vue";
-
 export default {
     components: {
         Head,
@@ -50,7 +46,6 @@ export default {
         Header,
         Footer,
         JetBanner,
-        GlobalSearch,
     },
 
     props: {

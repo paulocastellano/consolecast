@@ -1,11 +1,12 @@
 <template>
     <div>
-        <TransitionRoot :show="open" as="template" @after-leave="query = ''">
-            <Dialog
-                as="div"
-                class="fixed inset-0 z-10 overflow-y-auto p-4 sm:p-6 md:p-20"
-                @close="open = false"
-            >
+        <TransitionRoot
+            :show="open"
+            as="template"
+            @after-leave="query = ''"
+            appear
+        >
+            <Dialog as="div" class="relative z-10" @close="open = false">
                 <TransitionChild
                     as="template"
                     enter="ease-out duration-300"
@@ -15,121 +16,140 @@
                     leave-from="opacity-100"
                     leave-to="opacity-0"
                 >
-                    <DialogOverlay
-                        class="fixed inset-0 bg-gray-800 bg-opacity-80 transition-opacity"
+                    <div
+                        class="fixed inset-0 bg-[#221D53] bg-opacity-60 transition-opacity"
                     />
                 </TransitionChild>
 
-                <TransitionChild
-                    as="template"
-                    enter="ease-out duration-300"
-                    enter-from="opacity-0 scale-95"
-                    enter-to="opacity-100 scale-100"
-                    leave="ease-in duration-200"
-                    leave-from="opacity-100 scale-100"
-                    leave-to="opacity-0 scale-95"
+                <div
+                    class="fixed inset-0 z-10 overflow-y-auto p-4 sm:p-6 md:p-20"
                 >
-                    <Combobox
-                        as="div"
-                        class="mx-auto max-w-2xl transform divide-y divide-gray-500 divide-opacity-20 overflow-hidden rounded-xl bg-gray-900 shadow-2xl transition-all"
-                        @update:modelValue="onSelect"
+                    <TransitionChild
+                        as="template"
+                        enter="ease-out duration-300"
+                        enter-from="opacity-0 scale-95"
+                        enter-to="opacity-100 scale-100"
+                        leave="ease-in duration-200"
+                        leave-from="opacity-100 scale-100"
+                        leave-to="opacity-0 scale-95"
                     >
-                        <div class="relative">
-                            <SearchIcon
-                                class="pointer-events-none absolute top-3.5 left-4 h-5 w-5 text-gray-500"
-                                aria-hidden="true"
-                            />
-                            <ComboboxInput
-                                class="h-12 w-full border-0 bg-transparent pl-11 pr-4 text-white placeholder-gray-500 focus:ring-0 sm:text-sm"
-                                placeholder="Search..."
-                                @change="query = $event.target.value"
-                            />
-                        </div>
-
-                        <ComboboxOptions
-                            v-if="query === '' || courses.length > 0"
-                            static
-                            class="max-h-96 scroll-py-2 divide-y divide-gray-500 divide-opacity-20 overflow-y-auto"
+                        <DialogPanel
+                            class="mx-auto max-w-xl transform rounded-xl bg-white p-6 shadow-2xl ring-1 ring-black ring-opacity-5 transition-all"
                         >
-                            <li class="p-2" v-if="courses.length > 0">
-                                <h2
-                                    class="mt-4 mb-2 px-3 text-xs font-semibold text-gray-200"
-                                >
-                                    Courses
-                                </h2>
-                                <ul class="text-sm text-gray-400">
-                                    <ComboboxOption
-                                        v-for="server in courses"
-                                        :key="server.id"
-                                        :value="{
-                                            type: 'server',
-                                            data: server,
-                                        }"
-                                        as="template"
-                                        v-slot="{ active }"
+                            <Combobox
+                                @update:modelValue="onSelect"
+                                v-model="comboBoxInput"
+                            >
+                                <div class="relative">
+                                    <SearchIcon
+                                        class="pointer-events-none absolute top-3.5 left-4 h-5 w-5 text-[#45BCEC] text-opacity-40"
+                                        aria-hidden="true"
+                                    />
+                                    <ComboboxInput
+                                        class="h-12 w-full border border-[#45BCEC] rounded-lg bg-transparent pl-11 pr-4 text-gray-900 placeholder-[#B2B6F2] focus:ring-0 sm:text-sm"
+                                        placeholder="What would you like to learn?"
+                                        @change="query = $event.target.value"
+                                    />
+                                </div>
+
+                                <div>
+                                    <div
+                                        class="font-semibold text-primary-500 mt-6 mb-4"
                                     >
-                                        <li
-                                            :class="[
-                                                'flex cursor-default select-none items-center rounded-md px-3 py-2',
-                                                active &&
-                                                    'bg-gray-800 text-white',
-                                            ]"
+                                        Suggested search
+                                    </div>
+
+                                    <div class="flex space-x-2">
+                                        <div
+                                            v-for="suggested in suggestedItems"
+                                            :key="suggested"
+                                            @click="setSearchValue(suggested)"
+                                            class="cursor-pointer inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold text-lavander-600 uppercase hover:bg-[#EDEEFF]"
                                         >
-                                            <AcademicCapIcon
+                                            {{ suggested }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div
+                                        class="font-semibold text-primary-500 mb-5 mt-6"
+                                    >
+                                        Top cast search
+                                    </div>
+
+                                    <ComboboxOptions
+                                        v-if="filteredCourses.length > 0"
+                                        static
+                                        class="-mb-2 max-h-72 scroll-py-2 overflow-y-auto py-2 text-sm text-gray-800"
+                                    >
+                                        <ComboboxOption
+                                            v-for="course in filteredCourses"
+                                            :key="course.id"
+                                            :value="course"
+                                            as="template"
+                                            v-slot="{ active }"
+                                        >
+                                            <li
                                                 :class="[
-                                                    'h-6 w-6 flex-none',
-                                                    active
-                                                        ? 'text-white'
-                                                        : 'text-gray-500',
+                                                    'flex cursor-pointer select-none rounded-xl p-3',
+                                                    active && 'bg-[#EDEEFF]',
                                                 ]"
-                                                aria-hidden="true"
-                                            />
-                                            <span
-                                                class="ml-3 flex-auto truncate"
-                                                >{{ server.name }}</span
                                             >
-                                            <span
-                                                v-if="active"
-                                                class="ml-3 flex-none text-gray-400 text-xs"
-                                                >Jump to...</span
-                                            >
-                                        </li>
-                                    </ComboboxOption>
-                                </ul>
-                            </li>
-                        </ComboboxOptions>
+                                                <div
+                                                    :class="[
+                                                        'flex h-12 w-12 flex-none items-center justify-center rounded-full border border-[#B2B6F2] bg-[#EDEEFF]',
+                                                        course.color,
+                                                    ]"
+                                                >
+                                                    <img
+                                                        :src="
+                                                            asset(
+                                                                'images/search/course.svg'
+                                                            )
+                                                        "
+                                                        class="h-8 w-8 text-white"
+                                                        aria-hidden="true"
+                                                    />
+                                                </div>
+                                                <div class="ml-4 flex-auto">
+                                                    <p
+                                                        class="text-sm font-medium text-[#4764AF]"
+                                                    >
+                                                        {{ course.name }}
+                                                    </p>
+                                                    <span
+                                                        v-for="topic in course.topics"
+                                                        :key="topic"
+                                                        class="text-sm font-medium text-[#B2B6F2]"
+                                                    >
+                                                        {{ topic.name }}
+                                                    </span>
+                                                </div>
+                                            </li>
+                                        </ComboboxOption>
+                                    </ComboboxOptions>
+                                </div>
 
-                        <div
-                            v-if="query !== '' && courses.length === 0"
-                            class="py-14 px-6 text-center sm:px-14"
-                        >
-                            <ExclamationIcon
-                                class="mx-auto h-6 w-6 text-gray-500"
-                                aria-hidden="true"
-                            />
-                            <p class="mt-4 text-sm text-gray-200">
-                                We couldn't find data with that term. Please try
-                                again.
-                            </p>
-                        </div>
-
-                        <div
-                            class="flex flex-wrap items-center py-2 px-4 space-x-4"
-                        >
-                            <span class="flex items-center space-x-1.5">
-                                <kbd class="text-gray-100 text-base">↑↓</kbd>
-                                <span class="text-gray-500 text-xs"
-                                    >select</span
+                                <div
+                                    v-if="
+                                        query !== '' &&
+                                        filteredCourses.length === 0
+                                    "
+                                    class="py-14 px-4 text-center sm:px-14"
                                 >
-                            </span>
-
-                            <span class="flex items-center space-x-1.5">
-                                <kbd class="text-gray-100 text-base">↵</kbd>
-                                <span class="text-gray-500 text-xs">open</span>
-                            </span>
-                        </div>
-                    </Combobox>
-                </TransitionChild>
+                                    <UsersIcon
+                                        class="mx-auto h-6 w-6 text-gray-400"
+                                        aria-hidden="true"
+                                    />
+                                    <p class="mt-4 text-sm text-gray-900">
+                                        No course found using that search term.
+                                    </p>
+                                </div>
+                            </Combobox>
+                        </DialogPanel>
+                    </TransitionChild>
+                </div>
             </Dialog>
         </TransitionRoot>
     </div>
@@ -138,22 +158,19 @@
 <script>
 import hotkeys from "hotkeys-js";
 import { SearchIcon } from "@heroicons/vue/solid";
-import {
-    ExclamationIcon,
-    AcademicCapIcon,
-    LightningBoltIcon,
-    GlobeAltIcon,
-} from "@heroicons/vue/outline";
+import { UsersIcon } from "@heroicons/vue/outline";
+
 import {
     Combobox,
     ComboboxInput,
     ComboboxOptions,
     ComboboxOption,
     Dialog,
-    DialogOverlay,
+    DialogPanel,
     TransitionChild,
     TransitionRoot,
 } from "@headlessui/vue";
+
 export default {
     name: "GlobalSearch",
     components: {
@@ -162,22 +179,32 @@ export default {
         ComboboxOptions,
         ComboboxOption,
         Dialog,
-        DialogOverlay,
-        AcademicCapIcon,
-        ExclamationIcon,
-        SearchIcon,
-        LightningBoltIcon,
+        DialogPanel,
         TransitionChild,
         TransitionRoot,
-        GlobeAltIcon,
+
+        SearchIcon,
+        UsersIcon,
     },
+
+    props: ["searchCache"],
 
     data() {
         return {
             open: false,
             query: "",
+            comboBoxInput: null,
 
-            courses: [],
+            filteredCourses: this.$page.props.searchCache,
+
+            suggestedItems: [
+                "laravel",
+                "inertia",
+                "livewire",
+                "react",
+                "vue",
+                "docker",
+            ],
         };
     },
 
@@ -188,22 +215,14 @@ export default {
     watch: {
         query: {
             handler(query) {
-                // // servers
-                // query == ""
-                //     ? (this.courses = this.$page.props.servers)
-                //     : (this.courses = this.$page.props.servers.filter(
-                //           (server) => {
-                //               return server.name
-                //                   .toLowerCase()
-                //                   .includes(query.toLowerCase());
-                //           }
-                //       ));
-
-                axios
-                    .get(route("courses.global-search", { q: query }))
-                    .then((response) => {
-                        this.courses = response.data;
-                    });
+                query == ""
+                    ? (this.filteredCourses = this.$page.props.searchCache)
+                    : (this.filteredCourses =
+                          this.$page.props.searchCache.filter((course) => {
+                              return course.name
+                                  .toLowerCase()
+                                  .includes(query.toLowerCase());
+                          }));
             },
             deep: true,
         },
@@ -222,7 +241,12 @@ export default {
         },
 
         onSelect(item) {
-            window.location = route("courses.show", item.data.slug);
+            window.location = route("courses.show", item.slug);
+        },
+
+        setSearchValue(value) {
+            this.query = value;
+            this.comboBoxInput = value;
         },
     },
 };

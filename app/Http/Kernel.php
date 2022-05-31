@@ -67,6 +67,8 @@ class Kernel extends HttpKernel
 
         'billing' => \App\Http\Middleware\BillingMiddleware::class,
 
-        'is.admin' => \App\Http\Middleware\isAdmin::class
+        'is.admin' => \App\Http\Middleware\isAdmin::class,
+
+        'set.cache' => \App\Http\Middleware\SetCache::class
     ];
 }
